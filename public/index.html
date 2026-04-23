@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Состав — Find Affordable Dupes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:       #FAF8F5;
+      --cream-deep:  #F0EAE3;
+      --rose:        #C17B6A;
+      --rose-light:  #E5C0B8;
+      --rose-pale:   #F9EDEA;
+      --bark:        #2E2420;
+      --taupe:       #8A7A72;
+      --taupe-light: #C0B4AE;
+      --card:        #FDFBF9;
+      --border:      #E6DDD8;
+      --wb:          #7B3FA0;
+      --tb:          #2D8F6F;
+      --shadow:      0 2px 20px rgba(46,36,32,.06);
+      --shadow-up:   0 8px 40px rgba(46,36,32,.12);
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--bark);
+      min-height: 100vh;
+      /* subtle warm grain */
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+
+    /* ── Layout ── */
+    .wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── Hero ── */
+    header {
+      text-align: center;
+      padding: 5rem 1.5rem 2.5rem;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4.5rem, 12vw, 9rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1;
+      letter-spacing: -.02em;
+      color: var(--bark);
+    }
+
+    .logo em {
+      font-style: normal;
+      color: var(--rose);
+    }
+
+    .tagline {
+      margin-top: .6rem;
+      font-size: .75rem;
+      font-weight: 400;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--taupe);
+    }
+
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .75rem;
+      margin: 2rem auto 0;
+      width: 200px;
+    }
+
+    .ornament-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .ornament-gem {
+      width: 6px;
+      height: 6px;
+      border: 1.5px solid var(--rose-light);
+      transform: rotate(45deg);
+    }
+
+    /* ── Search card ── */
+    .search-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 2rem 2.25rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2.5rem;
+    }
+
+    .field-group {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: .75rem;
+    }
+
+    .field { display: flex; flex-direction: column; gap: .4rem; }
+
+    .field label {
+      font-size: .6875rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--taupe);
+    }
+
+    .field input,
+    .field select {
+      height: 48px;
+      padding: 0 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      background: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: .9375rem;
+      color: var(--bark);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .field select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238A7A72' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.25rem;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--rose);
+      box-shadow: 0 0 0 3px rgba(193,123,106,.12);
+    }
+
+    .field input::placeholder { color: var(--taupe-light); }
+
+    .filter-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: .75rem;
+      align-items: end;
+      margin-top: .75rem;
+    }
+
+    .btn {
+      height: 48px;
+      padding: 0 1.75rem;
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .9375rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--bark);
+      color: var(--cream);
+    }
+
+    .btn-primary:hover { background: var(--rose); }
+    .btn-primary:active { transform: scale(.98); }
+    .btn-primary:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+    /* ── Loading ── */
+    .loading {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 5rem 2rem;
+    }
+
+    .loading.on { display: flex; }
+
+    .spinner {
+      width: 34px;
+      height: 34px;
+      border: 2px solid var(--border);
+      border-top-color: var(--rose);
+      border-radius: 50%;
+      animation: spin .75s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.125rem;
+      font-style: italic;
+      color: var(--taupe);
+    }
+
+    /* ── Actives bar ── */
+    .actives-bar {
+      display: none;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .625rem;
+      padding: .875rem 1.25rem;
+      background: var(--rose-pale);
+      border: 1px solid var(--rose-light);
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .actives-bar.on { display: flex; }
+
+    .actives-label {
+      font-size: .6875rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--rose);
+    }
+
+    .active-chip {
+      font-size: .8rem;
+      padding: .2rem .7rem;
+      background: white;
+      border: 1px solid var(--rose-light);
+      border-radius: 100px;
+      color: var(--bark);
+    }
+
+    /* ── Error ── */
+    .error-bar {
+      display: none;
+      padding: .875rem 1.25rem;
+      background: #FEF2F2;
+      border: 1px solid #FCA5A5;
+      border-radius: 12px;
+      color: #991B1B;
+      font-size: .875rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .error-bar.on { display: block; }
+
+    /* ── Results ── */
+    .results {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.125rem;
+      margin-bottom: 5rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.375rem 1.5rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: .7rem;
+      transition: box-shadow .25s, transform .25s;
+      animation: fadeUp .4s ease both;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-up);
+      transform: translateY(-3px);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .card-brand {
+      font-size: .6375rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--taupe);
+    }
+
+    .badge {
+      font-size: .625rem;
+      font-weight: 500;
+      padding: .2rem .55rem;
+      border-radius: 100px;
+      flex-shrink: 0;
+    }
+
+    .badge-wb { background: rgba(123,63,160,.1); color: var(--wb); }
+    .badge-tb { background: rgba(45,143,111,.1);  color: var(--tb); }
+
+    .card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.175rem;
+      font-weight: 400;
+      line-height: 1.3;
+    }
+
+    .card-price {
+      font-size: 1.325rem;
+      font-weight: 500;
+    }
+
+    .card-price small {
+      font-size: .8rem;
+      font-weight: 300;
+      color: var(--taupe);
+    }
+
+    .inci-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .3rem;
+    }
+
+    .inci-tag {
+      font-size: .65rem;
+      padding: .175rem .5rem;
+      border-radius: 100px;
+      background: var(--cream-deep);
+      color: var(--taupe);
+      border: 1px solid var(--border);
+    }
+
+    .inci-tag.hit {
+      background: var(--rose-pale);
+      color: var(--rose);
+      border-color: var(--rose-light);
+    }
+
+    .card-footer {
+      margin-top: auto;
+      padding-top: .7rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .view-link {
+      font-size: .8125rem;
+      font-weight: 500;
+      color: var(--rose);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      transition: gap .2s, color .2s;
+    }
+
+    .view-link:hover { gap: .5rem; color: var(--bark); }
+
+    /* ── Empty ── */
+    .empty {
+      display: none;
+      text-align: center;
+      padding: 5rem 2rem 6rem;
+    }
+
+    .empty.on { display: block; }
+
+    .empty-icon {
+      font-size: 2.75rem;
+      opacity: .4;
+      margin-bottom: 1.25rem;
+    }
+
+    .empty h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--taupe);
+      margin-bottom: .4rem;
+    }
+
+    .empty p {
+      font-size: .875rem;
+      color: var(--taupe-light);
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: .725rem;
+      color: var(--taupe-light);
+      letter-spacing: .05em;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      header { padding: 3.5rem 1.25rem 2rem; }
+      .search-card { padding: 1.5rem; }
+      .filter-row {
+        grid-template-columns: 1fr;
+      }
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <header>
+      <div class="logo">Состав<em>.</em></div>
+      <p class="tagline">Find affordable dupes by ingredients</p>
+      <div class="ornament">
+        <div class="ornament-line"></div>
+        <div class="ornament-gem"></div>
+        <div class="ornament-line"></div>
+      </div>
+    </header>
+
+    <div class="search-card">
+      <form id="form">
+        <div class="field-group">
+          <div class="field">
+            <label for="q">Product name or URL</label>
+            <input
+              id="q" type="text" name="query" required autocomplete="off"
+              placeholder="e.g. La Mer Crème de la Mer"
+            />
+          </div>
+        </div>
+        <div class="filter-row">
+          <div class="field">
+            <label for="price">Max price (BYN)</label>
+            <input id="price" type="number" name="max_price" placeholder="No limit" min="0" step="1" />
+          </div>
+          <div class="field">
+            <label for="platform">Platform</label>
+            <select id="platform" name="platform">
+              <option value="">All platforms</option>
+              <option value="wildberries">Wildberries</option>
+              <option value="tabletka">Tabletka</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary" id="searchBtn">Find dupes →</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="errorBar" class="error-bar"></div>
+
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <p class="loading-text">Analysing ingredients…</p>
+    </div>
+
+    <div id="activesBar" class="actives-bar">
+      <span class="actives-label">Key actives identified</span>
+      <div id="activesList" style="display:contents"></div>
+    </div>
+
+    <div id="results" class="results"></div>
+
+    <div id="empty" class="empty">
+      <div class="empty-icon">🌿</div>
+      <h3>No affordable dupes found</h3>
+      <p>Try raising the price ceiling or searching for a different product</p>
+    </div>
+  </div>
+
+  <footer>Состав &mdash; ingredient-based cosmetics matching for the Belarusian market</footer>
+
+  <script>
+    const form       = document.getElementById('form');
+    const searchBtn  = document.getElementById('searchBtn');
+    const loading    = document.getElementById('loading');
+    const activesBar = document.getElementById('activesBar');
+    const activesList= document.getElementById('activesList');
+    const results    = document.getElementById('results');
+    const empty      = document.getElementById('empty');
+    const errorBar   = document.getElementById('errorBar');
+
+    function reset() {
+      [activesBar, empty, errorBar].forEach(el => el.classList.remove('on'));
+      results.innerHTML = '';
+      activesList.innerHTML = '';
+      errorBar.textContent = '';
+    }
+
+    function setLoading(on) {
+      loading.classList.toggle('on', on);
+      searchBtn.disabled = on;
+    }
+
+    function renderCard(product, actives) {
+      const matched = new Set(actives.map(a => a.toLowerCase()));
+      const inci    = (product.inci || []).slice(0, 9);
+      const isWB    = product.platform === 'wildberries';
+
+      const inciHtml = inci.map(ing => {
+        const hit = matched.has(ing.toLowerCase());
+        return `<span class="inci-tag${hit ? ' hit' : ''}">${ing}</span>`;
+      }).join('');
+
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.style.animationDelay = `${results.children.length * 55}ms`;
+      card.innerHTML = `
+        <div class="card-top">
+          <div class="card-brand">${product.brand || '&mdash;'}</div>
+          <span class="badge ${isWB ? 'badge-wb' : 'badge-tb'}">${isWB ? 'Wildberries' : 'Tabletka'}</span>
+        </div>
+        <div class="card-name">${product.name}</div>
+        <div class="card-price">${Number(product.price_byn).toFixed(2)} <small>BYN</small></div>
+        ${inci.length ? `<div class="inci-list">${inciHtml}</div>` : ''}
+        <div class="card-footer">
+          <a href="${product.url}" target="_blank" rel="noopener" class="view-link">
+            View product <span>→</span>
+          </a>
+        </div>`;
+      return card;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      reset();
+      setLoading(true);
+
+      const query    = document.getElementById('q').value.trim();
+      const maxPrice = document.getElementById('price').value;
+      const platform = document.getElementById('platform').value;
+
+      const body = { query };
+      if (maxPrice) body.max_price_byn = parseFloat(maxPrice);
+      if (platform) body.platform = platform;
+
+      try {
+        const res = await fetch('/api/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.error || `Server error ${res.status}`);
+        }
+
+        const { actives = [], results: items = [] } = await res.json();
+
+        if (actives.length) {
+          actives.forEach(a => {
+            const chip = document.createElement('span');
+            chip.className = 'active-chip';
+            chip.textContent = a;
+            activesList.appendChild(chip);
+          });
+          activesBar.classList.add('on');
+        }
+
+        if (!items.length) {
+          empty.classList.add('on');
+        } else {
+          items.forEach(p => results.appendChild(renderCard(p, actives)));
+        }
+      } catch (err) {
+        errorBar.textContent = err.message;
+        errorBar.classList.add('on');
+      } finally {
+        setLoading(false);
+      }
+    });
+  </script>
+</body>
+</html>
