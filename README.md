@@ -133,11 +133,28 @@ crontab -e
 
 ## Atlas Search index
 
-Create a search index named `products_search` on the `products` collection via the Atlas UI or CLI:
+### Option A — Atlas UI
+
+1. Cluster → **Atlas Search** tab → **Create Search Index**
+2. Choose **JSON Editor**
+3. Set index name to `products_search`, collection to `products`
+4. Paste the definition below and click **Create Search Index**
+
+### Option B — Atlas CLI
+
+```bash
+atlas clusters search indexes create --clusterName <yourClusterName> --file products_search.json
+```
+
+### Index definition (`products_search.json`)
 
 ```json
 {
+  "name": "products_search",
+  "collectionName": "products",
+  "database": "sostav",
   "mappings": {
+    "dynamic": false,
     "fields": {
       "name":      [{ "type": "string" }, { "type": "autocomplete" }],
       "brand":     [{ "type": "string" }],
@@ -148,6 +165,8 @@ Create a search index named `products_search` on the `products` collection via t
   }
 }
 ```
+
+`dynamic: false` restricts indexing to only the listed fields, which matters on the free tier.
 
 ## INCI enrichment coverage
 
